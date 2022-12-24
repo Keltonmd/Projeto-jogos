@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <gconio.h>
+
+
+int main(){
+	int f, t, x = 0, y = 3, xf, yf, cole = 0, p = 1, con;
+	srand(time(NULL));
+	textbackground(GREEN);
+	clrscr();		
+
+	do
+	{
+		printf("Deseja jogar?(Digite 1 para sim e 0 para nao)\n");
+		scanf(" %d", &con);
+		
+		if(con == 1)
+		{
+			textbackground(GREEN);
+			clrscr();
+			printf("=========SNAKE=========\n");
+			printf("Digite a quantidade de frutas: ");
+			scanf("%d", &f);
+			for(int i = 0; i < f; i++)
+			{
+				xf = rand() % 81;
+				yf = 3 + rand() % (25 - 3);
+				gotoxy(xf, yf);
+				putchar('@');
+				gotoxy(x, y);
+				do
+				{
+					if(x == 0 && y == 3)
+					{
+						gotoxy(x, y);
+						printf("*");
+					}
+					
+					
+
+				
+					t = getch();
+					
+					switch (t)
+					{
+						case 'd' : x++;
+								if(x > 80)
+								x = 0;
+								gotoxy(x, y);
+								putchar('*');
+								break;
+						case 'a' : x--;
+								if(x < 0)
+								x = 80;
+								gotoxy(x, y);
+								putchar('*');
+								break;
+						case 's' : y++;
+								if(y > 24)
+								y = 3;
+								gotoxy(x, y);
+								putchar('*');
+								break;
+						case 'w' : y--;
+								if(y < 3)
+								y = 24;
+								gotoxy(x, y);
+								putchar('*');
+					}
+					
+					
+					
+					if((x == xf) && (y == yf))
+					{
+						cole++;
+						gotoxy(50, 0);
+						printf("Frutas coletadas: %d/%d", f, cole);
+						p = 0;
+					}
+				}
+				while(p);
+				p =  1;
+			}
+			clrscr();
+			x = 0, y = 3, cole = 0, p = 1;
+		}
+	}
+	while(con != 0);
+		
+}
